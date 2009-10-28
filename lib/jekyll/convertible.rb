@@ -31,6 +31,7 @@ module Jekyll
     #
     # Returns nothing
     def transform
+      self.content.gsub!(/<!-- *more *-->/, "<span id='more'>&nbsp;</span>")
       case self.content_type
       when 'textile'
         self.ext = ".html"

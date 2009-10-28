@@ -91,6 +91,16 @@ module Jekyll
       self.slug = slug
       self.ext = ext
     end
+    
+    def short_content
+      pos = self.content.index(/<!-- *more *-->/)
+      return self.content if pos.nil?
+      self.content[0,pos-1]
+    end
+    
+    def has_more?
+      !!self.content.match(/<!-- *more *-->/)
+    end
 
     # The generated directory into which the post will be placed
     # upon generation. This is derived from the permalink or, if
@@ -221,7 +231,9 @@ module Jekyll
         "next"       => self.next,
         "previous"   => self.previous,
         "tags"       => self.tags,
-        "content"    => self.content }.deep_merge(self.data)
+        "content"    => self.content,
+        "short_content" => self.short_content,
+        "has_more?"  => self.has_more? }.deep_merge(self.data)
     end
 
     def inspect
