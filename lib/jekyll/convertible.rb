@@ -4,6 +4,7 @@
 # Requires
 #   self.site -> Jekyll::Site
 module Jekyll
+    
   module Convertible
     # Return the contents as a string
     def to_s
@@ -31,7 +32,7 @@ module Jekyll
     #
     # Returns nothing
     def transform
-      self.content.gsub!(/<!-- *more *-->/, "<span id='more'>&nbsp;</span>")
+      self.content.gsub!(/<!-- *more *-->/, "<!--more--><span id='more'>&nbsp;</span>")
       case self.content_type
       when 'textile'
         self.ext = ".html"
